@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <title>Liste des activitées</title>
+	<style type="text/css">
+		.titreApplication{
+			color:purple;
+			background-color:yellow;
+			text-align:center;
+			}
+		.listeActivites{
+			padding:0;
+			color:white;
+			text-align:center;
+			list-style-type:none;
+		}
+		.itemActivite{
+			padding:0.5rem;
+			margin-bottom:0.3rem;
+			background-color:purple;
+		}
+		.itemActivite:hover{
+			background-color:#FF8000;
+		}
+		.lienActivite{
+			color:white;
+			text-decoration:none;
+		}
+	</style>
+	<script type="text/javascript" charset="utf-8" src="lib/jquery.js"></script>
+    </head>
+    <body>
+		Une erreur est survenue ! 
+		
+		<script type="text/html" id="page-liste-activites">
+			<h1 class="titreApplication">Liste des activitées</h1>
+			<ul class="listeActivites" id="liste-activites"></ul>
+		</script>
+		
+		<script type="text/html" id="item-liste-activites">
+			<li class='itemActivite'>
+				<a class='lienActivite' href= '#activite/{ID}'>
+					{NOM}
+				</a>
+			</li>
+		</script>
+		
+		<script type="text/html" id="page-activite">
+			<h1 id="activite-nom">{NOM}</h1>
+			<h2 id="activite-date">{DATE}</h2>
+			<p id="activite-description">{DESCRIPTION}</p>
+			<a href="#">Retour à la liste</a>
+		</script>
+		
+		<script src="donnees/ActiviteDAO.js"></script>
+		<script src="vue/ActiviteVue.js"></script>
+		<script src="vue/ListeActivitesVue.js"></script>
+		<script src="application.js"></script>
+    </body>
+</html>
