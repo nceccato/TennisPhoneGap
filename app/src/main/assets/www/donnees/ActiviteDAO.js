@@ -17,4 +17,12 @@ var ActiviteDAO = function(){
 			}
 		}
 	};
+	
+	this.ajouterActivite = function(activite){
+		this.liste_activites[this.liste_activites.length] =
+			{"id":this.liste_activites.length+1,
+			 "nom":activite.nom,
+			 "date":activite.date,
+			 "description":activite.description}
+	};
 }

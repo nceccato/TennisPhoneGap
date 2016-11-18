@@ -14,6 +14,10 @@ var applicationListeTennis = {
 			this.listeActivitesVue = new ListeActivitesVue(this.liste_activites);
 			this.listeActivitesVue.afficher();
 		}
+		else if(ancre.match(/^#ajouter-activite/)){
+			this.ajouterActiviteVue = new AjouterActiviteVue();
+			this.ajouterActiviteVue.afficher($.proxy(this.sauvegarderNouvelleActivite, this));
+		}
 		else{
 			var trouvailles = ancre.match(/^#activite\/([0-9]+)/);
 			var id_activite = trouvailles[1];
@@ -22,6 +26,9 @@ var applicationListeTennis = {
 			this.activiteVue = new ActiviteVue(activite);
 			this.activiteVue.afficher();
 		}
+	},
+	sauvegarderNouvelleActivite:function(activite){
+		this.activiteDAO.ajouterActivite(activite);
 	}
 };
 

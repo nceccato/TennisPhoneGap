@@ -35,6 +35,7 @@
 		<script type="text/html" id="page-liste-activites">
 			<h1 class="titreApplication">Liste des activitées</h1>
 			<ul class="listeActivites" id="liste-activites"></ul>
+			<a href="#ajouter-activite">Ajouter une activite</a>
 		</script>
 		
 		<script type="text/html" id="item-liste-activites">
@@ -52,7 +53,25 @@
 			<a href="#">Retour à la liste</a>
 		</script>
 		
+		<script type="text/html" id="page-ajouter-activite">
+			<form id="formulaire-ajouter">
+				<label for="activite-nom">Nom</label>
+				<input type="text" id="activite-nom"/>
+				
+				<label for="activite-date">Date</label>
+				<input type="text" id="activite-date"/>
+				
+				<label for="activite-description">Description</label>
+				<textarea id="activite-description"></textarea>
+				
+				<input type="submit" value="Ajouter"/>
+			</form>
+			<a href="#">Retour à la liste sans ajouter</a>
+		</script>
+		
+		<script src="modele/Activite.js"></script>
 		<script src="donnees/ActiviteDAO.js"></script>
+		<script src="vue/AjouterActiviteVue.js"></script>
 		<script src="vue/ActiviteVue.js"></script>
 		<script src="vue/ListeActivitesVue.js"></script>
 		<script src="application.js"></script>
