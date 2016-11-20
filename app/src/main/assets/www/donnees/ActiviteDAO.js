@@ -25,4 +25,17 @@ var ActiviteDAO = function(){
 			 "date":activite.date,
 			 "description":activite.description}
 	};
+	
+	this.modifierActivite = function(activite){
+		for(var no_activite in this.liste_activites){
+			if(this.liste_activites[no_activite].id == activite.id){
+				this.liste_activites[activite.id-1] =
+					{"id":activite.id,
+					"nom":activite.nom,
+					"date":activite.date,
+					"description":activite.description}
+			}
+		}
+		
+	};
 }

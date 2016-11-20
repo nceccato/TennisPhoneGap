@@ -9,7 +9,8 @@ var ListeActivitesVue = function(liste_activites){
 		for(var no_activite in liste_activites){
 			htmlEnConstruction += ListeActivitesVue.html_item
 			.replace("{ID}",liste_activites[no_activite].id)
-			.replace("{NOM}",liste_activites[no_activite].nom);
+			.replace("{NOM}",liste_activites[no_activite].nom)
+			.replace("{ID2}",liste_activites[no_activite].id);
 		}
 		html_liste_activites.html(htmlEnConstruction);
 	}

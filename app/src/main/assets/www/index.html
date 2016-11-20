@@ -26,6 +26,9 @@
 			color:white;
 			text-decoration:none;
 		}
+		.lienModifierActivite{
+			float:right;
+		}
 	</style>
 	<script type="text/javascript" charset="utf-8" src="lib/jquery.js"></script>
     </head>
@@ -42,6 +45,9 @@
 			<li class='itemActivite'>
 				<a class='lienActivite' href= '#activite/{ID}'>
 					{NOM}
+				</a>
+				<a class='lienModifierActivite' href= '#modifier-activite/{ID2}'>
+					<input type="button" value="Modifier"/>
 				</a>
 			</li>
 		</script>
@@ -69,9 +75,26 @@
 			<a href="#">Retour à la liste sans ajouter</a>
 		</script>
 		
+		<script type="text/html" id="page-modifier-activite">
+			<form id="formulaire-modifier">
+				<label for="activite-nom">Nom</label>
+				<input type="text" id="activite-nom" value="{NOM}"/>
+				
+				<label for="activite-date">Date</label>
+				<input type="text" id="activite-date" value="{DATE}"/>
+				
+				<label for="activite-description">Description</label>
+				<textarea id="activite-description">{DESCRIPTION}</textarea>
+				
+				<input type="submit" value="Modifier"/>
+			</form>
+			<a href="#">Retour à la liste sans modifier</a>
+		</script>
+		
 		<script src="modele/Activite.js"></script>
 		<script src="donnees/ActiviteDAO.js"></script>
 		<script src="vue/AjouterActiviteVue.js"></script>
+		<script src="vue/ModifierActiviteVue.js"></script>
 		<script src="vue/ActiviteVue.js"></script>
 		<script src="vue/ListeActivitesVue.js"></script>
 		<script src="application.js"></script>
