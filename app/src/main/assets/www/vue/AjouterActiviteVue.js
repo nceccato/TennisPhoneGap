@@ -13,7 +13,7 @@ var AjouterActiviteVue = function(){
 		var date = $("#activite-date").val();
 		var description = $("#activite-description").val();
 		
-		var activite = new Activite(nom, date, description);
+		var activite = new Activite(id=null, nom, date, description);
 		
 		this.actionAjouterActivite(activite);
 		
