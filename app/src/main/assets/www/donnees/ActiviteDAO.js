@@ -35,7 +35,7 @@ var ActiviteDAO = function(){
 				var SQL_MODIFIER = "UPDATE activite SET nom = ?, date = ?, description = ? where id= ?";
 				var parametres = [activite.nom, activite.date, activite.description, activite.id];
 				operation.executeSql(SQL_MODIFIER, parametres);
-				alert("SQL_AJOUT :"+ SQL_MODIFIER);
+				//alert("SQL_AJOUT :"+ SQL_MODIFIER);
 			},
 			this.reagirErreur,
 			this.reagirSucces

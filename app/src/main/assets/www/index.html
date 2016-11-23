@@ -3,9 +3,10 @@
     <head>
     <title>Liste des activitées</title>
 	<style type="text/css">
+		.fond{
+			background-color:#b3ffe6;
+		}
 		.titreApplication{
-			color:purple;
-			background-color:yellow;
 			text-align:center;
 			}
 		.listeActivites{
@@ -17,9 +18,9 @@
 		.itemActivite{
 			padding:0.5rem;
 			margin-bottom:0.3rem;
-			background-color:purple;
+			background-color:#604020;
 		}
-		.itemActivite:hover{
+		.itemActivite:hover, .itemActivite:focus{
 			background-color:#FF8000;
 		}
 		.lienActivite{
@@ -29,10 +30,13 @@
 		.lienModifierActivite{
 			float:right;
 		}
+		.aligner{
+			align:center;
+		}
 	</style>
 	<script type="text/javascript" charset="utf-8" src="lib/jquery.js"></script>
     </head>
-    <body>
+    <body class='fond'>
 		Une erreur est survenue ! 
 		
 		<script type="text/html" id="page-liste-activites">
@@ -52,42 +56,42 @@
 			</li>
 		</script>
 		
-		<script type="text/html" id="page-activite">
-			<h1 id="activite-nom">{NOM}</h1>
-			<h2 id="activite-date">{DATE}</h2>
-			<p id="activite-description">{DESCRIPTION}</p>
+		<script type="text/html" id="page-activite" >
+			<h1 class='titreApplication' id="activite-nom">{NOM}</h1>
+			<h2 class='titreApplication' id="activite-date">{DATE}</h2>
+			<p class='titreApplication' id="activite-description">{DESCRIPTION}</p>
 			<a href="#">Retour à la liste</a>
 		</script>
 		
 		<script type="text/html" id="page-ajouter-activite">
-			<form id="formulaire-ajouter">
-				<label for="activite-nom">Nom</label>
-				<input type="text" id="activite-nom"/>
+			<form id="formulaire-ajouter" class='aligner'>
+				<label for="activite-nom">Nom  :</label><br />
+				<input type="text" id="activite-nom"/><br /><br />
 				
-				<label for="activite-date">Date</label>
-				<input type="text" id="activite-date"/>
+				<label for="activite-date">Date :</label><br />
+				<input type="text" id="activite-date"/><br /><br />
 				
-				<label for="activite-description">Description</label>
-				<textarea id="activite-description"></textarea>
+				<label for="activite-description">Description :</label><br />
+				<textarea id="activite-description"></textarea><br /><br />
 				
 				<input type="submit" value="Ajouter"/>
-			</form>
+			</form><br />
 			<a href="#">Retour à la liste sans ajouter</a>
 		</script>
 		
 		<script type="text/html" id="page-modifier-activite">
-			<form id="formulaire-modifier">
-				<label for="activite-nom">Nom</label>
-				<input type="text" id="activite-nom" value="{NOM}"/>
+			<form id="formulaire-modifier" class='aligner'>
+				<label for="activite-nom">Nom :</label><br />
+				<input type="text" id="activite-nom" value="{NOM}"/><br /><br />
 				
-				<label for="activite-date">Date</label>
-				<input type="text" id="activite-date" value="{DATE}"/>
+				<label for="activite-date">Date :</label><br />
+				<input type="text" id="activite-date" value="{DATE}"/><br /><br />
 				
-				<label for="activite-description">Description</label>
-				<textarea id="activite-description">{DESCRIPTION}</textarea>
+				<label for="activite-description">Description :</label><br />
+				<textarea id="activite-description">{DESCRIPTION}</textarea><br /><br />
 				
 				<input type="submit" value="Modifier"/>
-			</form>
+			</form><br />
 			<a href="#">Retour à la liste sans modifier</a>
 		</script>
 		
