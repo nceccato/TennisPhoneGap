@@ -1,19 +1,25 @@
 var applicationListeTennis = {
 	lancer:function(){		
-		this.activiteDAO = new ActiviteDAO();
-		this.liste_activites = this.activiteDAO.listerToutesLesActivites();
 		
 		$(window).on('hashchange', $.proxy(this.naviguer, this));
 		
-		this.naviguer();
-		
+		if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)){
+			$(document).on('deviceready', $.proxy(this.initialiserPourDonnees(), this));
+		}else{
+			this.initialiserPourDonnees();
+		}
 	},
+	
+	initialiserPourDonnees:function(){
+		this.activiteDAO = new ActiviteDAO();
+		this.naviguer();
+	},
+	
 	naviguer:function(){
 		var ancre = window.location.hash;
 		
 		if(!ancre){
-			this.listeActivitesVue = new ListeActivitesVue(this.liste_activites);
-			this.listeActivitesVue.afficher();
+			this.liste_activites = this.activiteDAO.listerToutesLesActivites($.proxy(this.afficherToutesLesActivites, this));
 		}
 		else if(ancre.match(/^#ajouter-activite/)){
 			this.ajouterActiviteVue = new AjouterActiviteVue();
@@ -41,6 +47,11 @@ var applicationListeTennis = {
 	},
 	sauvegarderModificationActivite:function(activite){
 		this.activiteDAO.modifierActivite(activite);
+	},
+	
+	afficherToutesLesActivites:function(liste_activites){
+		this.listeActivitesVue = new ListeActivitesVue(liste_activites);
+		this.listeActivitesVue.afficher();
 	}
 };
 

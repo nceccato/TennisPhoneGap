@@ -1,14 +1,87 @@
 var ActiviteDAO = function(){
 	
-	this.liste_activites = [
-		{"id":1,"nom":"Stage 8-12 ans","date":"11/21/2016 - 11/25/2016","description":"Stage d'apprentissage des bases du tennis.<br />Horaires : 10h-15h du lundi au vendredi.<br />Au programme : tennis, mini-tennis, physique ludique.<br /><br />N'oubliez pas d'amener votre repas pour le midi !"},
-		{"id":2,"nom":"Tournois d'hiver adulte","date":"12/12/2016 - 12/23/2016","description":"Tournois d'hiver pour les 18 ans et plus.<br />Prix d'inscription : 10$"},
-		{"id":3,"nom":"Repas de noel","date":"12/26/2016","description":"Repas de noel au club, venez deguiser si possible.<br />Prix du repas : 7$"},
-	];
+	this.liste_activites = [];
 	
-	this.listerToutesLesActivites = function(){
-		return this.liste_activites;
-	};
+	this.initialiser = function(){
+		var SQL_CREATION = "CREATE TABLE IF NOT EXISTS activite(id INTEGER PRIMARY KEY AUTOINCREMENT, nom VARCHAR(50), date VARCHAR(30), description TEXT)";
+		this.baseDeDonnees = window.openDatabase("ListeActivite", "1.0", "Liste des activites", 200000);
+		
+		this.baseDeDonnees.transaction(
+		function(operation){
+			var SQL_CREATION = "CREATE TABLE IF NOT EXISTS activite(id INTEGER PRIMARY KEY AUTOINCREMENT, nom VARCHAR(50), date VARCHAR(30), description TEXT)";
+
+			operation.executeSql(SQL_CREATION);
+		},
+		this.reagirErreur,
+		this.reagirSucces
+		);
+	}
+	
+	this.ajouterActivite = function(activite){
+		this.baseDeDonnees.transaction(
+			function(operation){
+				var SQL_AJOUT = "INSERT INTO activite(nom, date, description) VALUES(?, ?, ?)";
+				var parametres = [activite.nom, activite.date, activite.description];
+				operation.executeSql(SQL_AJOUT, parametres);
+			},
+			this.reagirErreur,
+			this.reagirSucces
+		);
+	}
+	
+	this.modifierActivite = function(activite){
+		this.baseDeDonnees.transaction(
+			function(operation){
+				var SQL_MODIFIER = "UPDATE activite SET nom = ?, date = ?, description = ? where id= ?";
+				var parametres = [activite.nom, activite.date, activite.description, activite.id];
+				operation.executeSql(SQL_MODIFIER, parametres);
+				alert("SQL_AJOUT :"+ SQL_MODIFIER);
+			},
+			this.reagirErreur,
+			this.reagirSucces
+		);
+	}
+	
+	this.listerToutesLesActivites = function(finalisation){
+		var self = this;
+		
+		self.baseDeDonnees.transaction(
+			function(operation){
+				var SQL_SELECTION = "SELECT * FROM activite";
+				operation.executeSql(SQL_SELECTION, [], function(operation, resultat)
+				{
+					self.liste_activites = [];
+					for(var position = 0; position<resultat.rows.length; position++){
+						var enregistrementActivite = resultat.rows.item(position);
+						activite = new Activite(enregistrementActivite.id,
+											enregistrementActivite.nom, 
+											enregistrementActivite.date, 
+											enregistrementActivite.description);
+						self.liste_activites[self.liste_activites.length] = activite;
+					}
+				});
+			},
+			this.reagirErreur,
+			
+			function(){
+				finalisation(self.liste_activites);
+			}
+		);
+	}
+	
+	this.reagirErreur = function(erreur){
+		console.log("ERREUR:SQL:" + erreur.code + ":" + erreur.message);
+		alert("ERREUR:SQL:" + erreur.code + ":" + erreur.message);
+	}
+	
+	this.reagirSucces = function(){
+		console.log("SUCCES:SQL:");
+		alert("SUCCES:SQL:");
+	}
+	
+	this.initialiser();
+	
+	
 	
 	this.trouverActiviteParId = function(id_activite){
 		for(var no_activite in this.liste_activites){
@@ -18,24 +91,4 @@ var ActiviteDAO = function(){
 		}
 	};
 	
-	this.ajouterActivite = function(activite){
-		this.liste_activites[this.liste_activites.length] =
-			{"id":this.liste_activites.length+1,
-			 "nom":activite.nom,
-			 "date":activite.date,
-			 "description":activite.description}
-	};
-	
-	this.modifierActivite = function(activite){
-		for(var no_activite in this.liste_activites){
-			if(this.liste_activites[no_activite].id == activite.id){
-				this.liste_activites[activite.id-1] =
-					{"id":activite.id,
-					"nom":activite.nom,
-					"date":activite.date,
-					"description":activite.description}
-			}
-		}
-		
-	};
 }
